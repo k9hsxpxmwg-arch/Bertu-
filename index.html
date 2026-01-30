@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<title>227 💖</title>
+<style>
+  body {
+    margin: 0;
+    height: 100vh;
+    background-color: #800000; /* bordo arka plan */
+    overflow: hidden;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: white;
+    text-align: center;
+  }
+
+  #header {
+    position: absolute;
+    top: 10px;
+    width: 100%;
+    text-align: center;
+    font-size: 3em;
+    z-index: 10;
+    font-weight: bold;
+  }
+
+  #countdown {
+    position: absolute;
+    top: 60px;
+    width: 100%;
+    text-align: center;
+    font-size: 2em;
+    z-index: 10;
+  }
+
+  #message {
+    position: absolute;
+    top: 30%;
+    width: 80%;
+    left: 10%;
+    font-size: 1.5em;
+    line-height: 1.6;
+    color: white;
+    opacity: 0;
+    transition: opacity 3s ease, top 3s ease; /* fade-in + yavaş iniş */
+  }
+
+  .heart, .love-text {
+    position: absolute;
+    bottom: 0;
+    animation: floatUp linear infinite;
+    white-space: nowrap;
+    pointer-events: none;
+    z-index: 5;
+  }
+
+  @keyframes floatUp {
+    0% { transform: translateY(0) scale(1); opacity: 1; }
+    100% { transform: translateY(-100vh) scale(1.2); opacity: 0; }
+  }
+</style>
+</head>
+<body>
+
+<div id="header">227</div>
+<div id="countdown">Mesajın açılmasına kalan süre: </div>
+
+<div id="message">
+  ❤️<br><br>
+  Yaradan aşkı nasip eyledi aşk aşkıma aşık, ruhum ruhuna mesken.<br>
+  İnan ki bu gönül senin yolunda bir bedesten içi aşkla, vefa dolu, sevgi dolu, merhamet dolu.<br><br>
+  DOĞUM GÜNÜN KUTLU OLSUN ÖMRÜM!<br>
+  NİCE BERABER GÜZEL, HUZURLU, MUTLU YILLARIMIZA İNŞALLAH 💖
+</div>
+
+<script>
+  const colors = ['white', 'red', 'black'];
+  const languages = [
+    "I love you", "Je t'aime", "Te amo", "Ich liebe dich",
+    "Ti amo", "Eu te amo", "Seni seviyorum", "Я тебя люблю",
+    "Te iubesc", "Aishiteru", "Jeg elsker dig", "Mahal kita",
+    "Nakupenda", "Kocham cię", "Ana behibek", "T'estimo"
+  ];
+
+  // Kalpler
+  for(let i=0;i<60;i++){
+    let heart = document.createElement('div');
+    heart.className='heart';
+    heart.style.left = Math.random()*100 + 'vw';
+    heart.style.fontSize = (12 + Math.random()*24) + 'px';
+    heart.style.color = colors[Math.floor(Math.random()*colors.length)];
+    heart.style.animationDuration = (6 + Math.random()*6) + 's';
+    heart.innerText = '❤️';
+    document.body.appendChild(heart);
+  }
+
+  // Uçan aşk yazıları - Yavaş
+  for(let i=0;i<50;i++){
+    let love = document.createElement('div');
+    love.className='love-text';
+    love.style.left = Math.random()*100 + 'vw';
+    love.style.fontSize = (14 + Math.random()*16)+'px';
+    love.style.color = colors[Math.floor(Math.random()*colors.length)];
+    love.style.animationDuration = (10 + Math.random()*10)+'s'; // daha yavaş
+    love.innerText = languages[Math.floor(Math.random()*languages.length)];
+    document.body.appendChild(love);
+  }
+
+  // Hedef tarih: 27 Şubat 2026 00:00:00
+  let targetDate = new Date(2026,1,27,0,0,0); // ay 0'dan başlar
+
+  let countdown = document.getElementById('countdown');
+  let message = document.getElementById('message');
+
+  function updateCountdown(){
+    let now = new Date();
+    let diff = targetDate - now;
+
+    if(diff > 0){
+      let days = Math.floor(diff/(1000*60*60*24));
+      let hours = Math.floor((diff%(1000*60*60*24))/(1000*60*60));
+      let minutes = Math.floor((diff%(1000*60*60))/(1000*60));
+      let seconds = Math.floor((diff%(1000*60))/1000);
+
+      countdown.innerText = `Mesajın açılmasına kalan süre: ${days}g ${hours}h ${minutes}m ${seconds}s`;
+    } else {
+      countdown.style.display='none';
+      message.style.opacity=1;
+      message.style.top='35%';
+      clearInterval(timer);
+    }
+  }
+
+  let timer = setInterval(updateCountdown,1000);
+</script>
+
+<!-- Telifsiz romantik müzik -->
+<audio autoplay loop>
+  <source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_8a9a2b3c41.mp3?filename=romantic-piano-13741.mp3" type="audio/mpeg">
+  Tarayıcınız audio etiketini desteklemiyor.
+</audio>
+
+</body>
+</html>
