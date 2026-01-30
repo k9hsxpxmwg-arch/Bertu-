@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<title>Bizim Anımız</title>
+
+<style>
+  body {
+    margin: 0;
+    font-family: 'Georgia', serif;
+    background: radial-gradient(circle at top, #2b0a1f, #000);
+    color: #fff;
+    text-align: center;
+    overflow: hidden;
+  }
+
+  /* 227 başlığı */
+  .top-number {
+    position: absolute;
+    top: 20px;
+    width: 100%;
+    font-size: 22px;
+    letter-spacing: 6px;
+    opacity: 0.8;
+  }
+
+  .container {
+    padding-top: 20%;
+    z-index: 2;
+    position: relative;
+  }
+
+  #countdown {
+    font-size: 30px;
+    letter-spacing: 1px;
+  }
+
+  #message {
+    display: none;
+    font-size: 26px;
+    line-height: 1.8;
+    animation: fadeIn 3s ease forwards;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .heart {
+    position: absolute;
+    bottom: -20px;
+    color: rgba(255, 100, 150, 0.6);
+    font-size: 20px;
+    animation: floatUp 8s linear infinite;
+  }
+
+  @keyframes floatUp {
+    from { transform: translateY(0); opacity: 1; }
+    to { transform: translateY(-110vh); opacity: 0; }
+  }
+</style>
+</head>
+
+<body>
+
+<!-- 227 -->
+<div class="top-number">227</div>
+
+<div class="container">
+  <div id="countdown"></div>
+
+  <div id="message">
+    💖<br><br>
+    Hayatım,<br>
+    Bu satırları okuduğun anda<br>
+    zaman bizim için durdu.<br><br>
+    Seni her gün biraz daha,<br>
+    her an biraz daha seviyorum.<br><br>
+    — Biz 💌
+  </div>
+</div>
+
+<script>
+const targetDate = new Date("2026-02-14T00:00:00").getTime();
+
+const timer = setInterval(() => {
+  const now = new Date().getTime();
+  const diff = targetDate - now;
+
+  if (diff <= 0) {
+    clearInterval(timer);
+    document.getElementById("countdown").style.display = "none";
+    document.getElementById("message").style.display = "block";
+    return;
+  }
+
+  const d = Math.floor(diff / (1000 * 60 * 60 * 24));
+  const h = Math.floor((diff / (1000 * 60 * 60)) % 24);
+  const m = Math.floor((diff / (1000 * 60)) % 60);
+  const s = Math.floor((diff / 1000) % 60);
+
+  document.getElementById("countdown").innerHTML =
+    `⏳ Kavuşmaya kalan süre<br><br>
+     ${d} gün ${h} saat ${m} dk ${s} sn`;
+}, 1000);
+
+// Kalp animasyonu
+setInterval(() => {
+  const heart = document.createElement("div");
+  heart.className = "heart";
+  heart.innerHTML = "❤";
+  heart.style.left = Math.random() * 100 + "vw";
+  heart.style.fontSize = (15 + Math.random() * 25) + "px";
+  document.body.appendChild(heart);
+
+  setTimeout(() => heart.remove(), 8000);
+}, 400);
+</script>
+
+</body>
+</html>
